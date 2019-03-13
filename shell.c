@@ -19,7 +19,7 @@ void execat(int argc, char *argv[], int offset)
 		exit(0);
 	} else {
 		extern char **environ;
-		if (execve(argv[offset], argv + offset, environ) == -1) {
+		if (execvpe(argv[offset], argv + offset, environ) == -1) {
 			perror(argv[offset]);
 			exit(1);
 		}
