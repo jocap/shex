@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "shell.h"
+#include "shex.h"
 
 /* ---------------------------------------------------------------------
 `exp' execs into the following argv, but first having expanded any

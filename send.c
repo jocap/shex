@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "shell.h"
+#include "shex.h"
 
 int ter = -1; // terminator
 
