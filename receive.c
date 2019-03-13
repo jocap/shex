@@ -2,9 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-
 #include "shell.h"
 
 int receive(char *);
@@ -13,7 +11,7 @@ bool positional = false;
 
 int main(int argc, char *argv[])
 {
-	int c, i;
+	int c, offset;
 
 	/* calculate own arg count */
 	c = 1;
@@ -23,17 +21,21 @@ int main(int argc, char *argv[])
 	if (c < 2) goto usage;
 
 	if (argv[1][0] == '-') {
-		if (strcmp(argv[1], "-p") == 0) {
+		if (argv[1][2] != '\0') goto usage;
+		offset = 2;
+
+		switch (argv[1][1]) {
+		case 'p':
 			positional = true;
 			if (c > 2) goto usage;
-		} else if (strcmp(argv[1], "--") == 0) {
-			;
-		} else {
+			break;
+		case '-':
+			break;
+		default:
 			goto usage;
 		}
-		i = 1;
 	} else {
-		i = 0;
+		offset = 1;
 	}
 
 	/* assign variables */
@@ -44,16 +46,15 @@ int main(int argc, char *argv[])
 			snprintf(variable, 3, "%d", ++n);
 		} while (receive(variable) != -1 && n < 10);
 	} else {
-		for (; i < c; i++) {
-			receive(argv[i]);
+		for (; offset < c; offset++) {
+			receive(argv[offset]);
 		}
 	}
 
 	execat(argc, argv, c + 1);
 
 usage:
-	fprintf(stderr, "usage: %s [-p] [variable ...]\n", argv[0]);
-	return 1;
+	usage("%s [-p] [variable ...]", argv[0]);
 }
 
 int receive(char *variable)
@@ -82,6 +83,8 @@ int receive(char *variable)
 
 	if (setenv(variable, string, 0) == -1)
 		err(1, "setenv");
+
+	free(string);
 
 	return 0;
 }

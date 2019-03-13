@@ -1,3 +1,4 @@
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,4 +25,17 @@ void execat(int argc, char *argv[], int offset)
 			exit(1);
 		}
 	}
+}
+
+void usage(char *fmt, ...)
+{
+	va_list ap;
+
+	fprintf(stderr, "usage: ");
+	va_start(ap, fmt);
+	vfprintf(stderr, fmt, ap);
+	va_end(ap);
+	fprintf(stderr, "\n");
+
+	exit(1);
 }
