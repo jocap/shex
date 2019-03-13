@@ -59,27 +59,30 @@ usage:
 
 int receive(char *variable)
 {
-	char c;
-	size_t i, size;
+	char chr;
 	char *string;
+	size_t i, size;
+	int r;
 
 	size = 50 * sizeof (char);
 	if ((string = malloc(size)) == NULL)
 		err(1, "malloc");
 
-	if (read(STDIN_FILENO, &c, 1) <= 0 || c == 0) return -1;
-	else string[0] = c;
+	if (read(STDIN_FILENO, &chr, 1) <= 0 || chr == 0) return -1;
+	else string[0] = chr;
 	i = 1;
 
-	while (read(STDIN_FILENO, &c, 1) > 0 && c != 0) {
+	while ((r = read(STDIN_FILENO, &chr, 1)) > 0 && chr != 0) {
 		if (i > size) {
 			if ((string = realloc(string, size + 50)) == NULL)
 				err(1, "realloc");
 			size = size + 50;
 		}
-		string[i] = c;
+		string[i] = chr;
 		i++;
 	}
+
+	if (r == -1) err(1, "read");
 
 	if (setenv(variable, string, 0) == -1)
 		err(1, "setenv");
