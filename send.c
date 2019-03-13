@@ -41,6 +41,6 @@ int main(int argc, char *argv[])
 	execat(argc, argv, c + 1);
 
 usage:
-	fprintf(stderr, "usage: %s [-t ter] string\n", argv[0]);
+	fprintf(stderr, "usage: %s [-t ter] string [...]\n", argv[0]);
 	return 1;
 }

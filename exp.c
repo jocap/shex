@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 	c = 1;
 	while (!terminator(argv[c])) c++; // expand until terminator (semicolon)
 
-	if (c < 1) usage("%s command [argument ...]", argv[0]);
+	if (c < 2) usage("%s argv ...", argv[0]);
 
 	/* expand arguments within every argument separately */
 	for (i = 1; i < c; i++) {
