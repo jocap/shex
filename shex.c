@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "shell.h"
+#include "shex.h"
 
 bool terminator(char *x)
 {
