@@ -1,8 +1,13 @@
 **shex** is a simple shell for POSIX written in C.
-It is inspired by [execline], but it shares no code with it.
+It is inspired by [execline], but shares no code with it.
 It is developed completely independently.
 
 [execline]: https://skarnet.org/software/execline/index.html
+
+shex differs from execline in the following ways:
+
+-   shex commands are variadic, and their argument lists are terminated by
+    an argument containing a single semicolon.
 
 ### Programs
 
