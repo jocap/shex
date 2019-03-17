@@ -52,7 +52,7 @@ char *command(char *args)
 		close(pipes[1]);
 		/* execute argv */
 		extern char **environ;
-		if (execvpe(argv[0], argv, environ) == -1) err(1, "execvpe");
+		if (execvpe(argv[0], argv, environ) == -1) err(1, "%s", argv[0]);
 	} else { // in parent
 		close(pipes[1]);
 		written = 0;
