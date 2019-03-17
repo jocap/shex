@@ -15,7 +15,7 @@ bool terminator(char *x)
 
 void execat(int argc, char *argv[], int offset)
 {
-	if (offset >= argc) {
+	if (argc != -1 && offset >= argc) {
 		exit(0);
 	} else {
 		extern char **environ;
